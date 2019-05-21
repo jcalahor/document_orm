@@ -74,7 +74,7 @@ REFERENCE_SPEC = [
 CHILD_ENTITY_JSON_DATA = {
     'EntlSource':
         [
-            ('EntlType', 2, {'EmailSource':'core.model.source.email_source',
+            ('EntlType', 1, {'EmailSource':'core.model.source.email_source',
                                     'FTPSource':'core.model.source.ftp_source'}),
             {
                 'EmailSource':[('sender_email', 'SenderEmail'), ('subject_pattern', 'SubjectPattern')],

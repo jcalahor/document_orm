@@ -12,8 +12,8 @@ def get_entlsources(logger, connection, filter_sql):
     module_map = {'EmailSource':'core.model.source.email_source', 'FTPSource':'core.model.source.ftp_source', }
     
     def read(row):
-        module = importlib.import_module(module_map[row[2]])
-        class_ = getattr(module, row[2])
+        module = importlib.import_module(module_map[row[1]])
+        class_ = getattr(module, row[1])
         entity = class_()
         
         entity.id = row[0]

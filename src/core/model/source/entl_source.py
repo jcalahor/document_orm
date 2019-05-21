@@ -1,8 +1,8 @@
 from core.model.base import Base
 
 class EntlType(object):
-    EMAIL = 'EMAIL'
-    FTP = 'FTP'
+    EMAIL = 'EmailSource'
+    FTP = 'FTPSource'
 
 class EntlSource(Base):
     def __init__(self):

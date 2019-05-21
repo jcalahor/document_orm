@@ -13,7 +13,7 @@ from core.model.role import Role
 from core.model.user_role import UserRole
 from core.model.source.email_source import EmailSource
 from core.model.source.ftp_source import FTPSource
-from core.model.source.entl_source import EntlType
+from core.model.source.entl_source import EntlType, EntlSource
 
 
 def create_ftp_source():
@@ -151,6 +151,12 @@ class DBTests(unittest.TestCase):
 
         self.db.store_single(es)
         self.db.store_single(fs)
+
+        email_sources = self.db.get_entities(EmailSource, "Id = '{0}'".format(es.id))
+        ftp_sources = self.db.get_entities(FTPSource, "Id = '{0}'".format(fs.id))
+
+        self.assertTrue(email_sources[0].id == es.id)
+        self.assertTrue(ftp_sources[0].id == fs.id)
 
         self.db.delete_single(es)
         self.db.delete_single(fs)
