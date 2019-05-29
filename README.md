@@ -27,7 +27,7 @@ The screenshot below show setup for a family of objects that are stored on the s
 
 Running the generator.
 
-Onces setup is complete, we use generator.py to run the generation of the pieces of code that will allow us to store the entities. The screenshot below shows the code (stored procedures and python modules) that is created.
+Onces setup is complete, we use generator.py to run the generation of the pieces of code that will allow us to store the entities. The screenshot below shows the code (stored procedures and python modules) that are created.
 
 ![Alt text](/doc/images/generated_code.png?raw=true "structure")
 
