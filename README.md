@@ -31,3 +31,4 @@ Onces setup is complete, we use generator.py to run the generation of the pieces
 
 ![Alt text](/doc/images/generated_code.png?raw=true "structure")
 
+test folder: The db_tests module contains different set of sample tests that we can apply to the generated code. The samples are illustrative for the different features that the framework support. This is also sample code of how to use the framework and how you can adopt it to your own system
