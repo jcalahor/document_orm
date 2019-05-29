@@ -25,6 +25,9 @@ The image below show details of the configuration entries that define the mappin
 The screenshot below show setup for a family of objects that are stored on the same target SQL table. Child specific fields are stored in a common JSON field.
 ![Alt text](/doc/images/generation_spec2.png?raw=true "structure")
 
+Running the generator.
+
+Onces setup is complete, we use generator.py to run the generation of the pieces of code that will allow us to store the entities. The screenshot below shows the code (stored procedures and python modules) that is created.
 
 ![Alt text](/doc/images/generated_code.png?raw=true "structure")
 
