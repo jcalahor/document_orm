@@ -26,3 +26,5 @@ The screenshot below show setup for a family of objects that are stored on the s
 ![Alt text](/doc/images/generation_spec2.png?raw=true "structure")
 
 
+![Alt text](/doc/images/generated_code.png?raw=true "structure")
+
