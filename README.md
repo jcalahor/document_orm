@@ -18,6 +18,11 @@ Use db_generator.cfg to setup to connection string to a sql server database and 
 
 Data types are sql types however under the System table there is a column named Contacts, this is a special kind of column which is a JSON column (will be created as varchar(max) on sql server), it specifies that a collection of objects will be stored in this column and they will be serialized into a JSON collection
 
+The image below show details of the configuration entries that define the mapping.
+
 ![Alt text](/doc/images/generation_spec1.png?raw=true "structure")
 
+The screenshot below show setup for a family of objects that are stored on the same target SQL table. Child specific fields are stored in a common JSON field.
 ![Alt text](/doc/images/generation_spec2.png?raw=true "structure")
+
+
