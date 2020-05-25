@@ -1,3 +1,6 @@
+import sys,os
+sys.path.append(os.getcwd())
+print (os.getcwd())
 import unittest
 from db.db import Db
 from configparser import ConfigParser
@@ -90,9 +93,9 @@ class DBTests(unittest.TestCase):
     def setUp(self):
         init()
         self.parser = ConfigParser()
-        logging.config.fileConfig('db_test.cfg')
+        logging.config.fileConfig('test/db_test.cfg')
         logger = logging.getLogger('basic')
-        self.parser.read('db_test.cfg')
+        self.parser.read('test/db_test.cfg')
         connection_string = self.parser.get('Db', 'connection_string')
         self.db = Db(connection_string, logger)
         self.db.open()

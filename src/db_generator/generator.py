@@ -1,3 +1,6 @@
+import sys,os
+sys.path.append(os.getcwd())
+print (os.getcwd())
 from configparser import ConfigParser
 import logging
 import logging.config
@@ -99,17 +102,17 @@ def process_spec(db, logger, python_target_folder):
 
         def create_python_src_store():
             python_code = build_store_entity(class_name, hierarchy)
-            with open(python_target_folder + "\\" + 'store_' + class_name.lower() + ".py", "w") as text_file:
+            with open(python_target_folder + "/" + 'store_' + class_name.lower() + ".py", "w") as text_file:
                 text_file.write(python_code)
 
         def create_python_src_delete():
             python_code = build_delete_entity(class_name, entity_keys, hierarchy)
-            with open(python_target_folder + "\\" + 'delete_' + class_name.lower() + ".py", "w") as text_file:
+            with open(python_target_folder + "/" + 'delete_' + class_name.lower() + ".py", "w") as text_file:
                 text_file.write(python_code)
 
         def create_python_src_get():
             python_code = build_get_entity(class_name, hierarchy)
-            with open(python_target_folder + "\\" + 'get_' + class_name.lower() + "s.py", "w") as text_file:
+            with open(python_target_folder + "/" + 'get_' + class_name.lower() + "s.py", "w") as text_file:
                 text_file.write(python_code)
 
         hierarchy = []
@@ -141,9 +144,9 @@ def run():
     logger = None
     try:
         parser = ConfigParser()
-        logging.config.fileConfig('db_generator.cfg')
+        logging.config.fileConfig('db_generator/db_generator.cfg')
         logger = logging.getLogger('basic')
-        parser.read('db_generator.cfg')
+        parser.read('db_generator/db_generator.cfg')
         logger.info("Starting generation process...")
 
         connection_string = parser.get('Db', 'connection_string')
