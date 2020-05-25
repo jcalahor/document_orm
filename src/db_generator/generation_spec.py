@@ -11,78 +11,59 @@ class EntityTableMapType(object):
     COMPOSITE = 'COMPOSITE'
 
 GENERATION_SPEC = [
-    ('User', ['core.model.user', 'Base', 'User', EntityTableMapType.SINGLE,
+    ('User', ['model.user', 'Base', 'User', EntityTableMapType.SINGLE,
               [
                   ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
                   ('FirstName', 'varchar', 100, 'first_name', None, 'NOT NULL'),
                   ('LastName', 'varchar', 100, 'last_name', None, 'NOT NULL'),
                   ('Email', 'varchar', 100, 'email', None, 'NOT NULL'),
+                  ('UserName', 'varchar', 100, 'user_name', None, 'NOT NULL'),
+                  ('Password', 'varchar', 100, 'password', None, 'NOT NULL'),
+                  ('Role', 'int', None, 'role', None, 'NULL'),
+                  ('Avatar', 'int', None, 'avatar', None, 'NULL'),
+                  ('Favorites', 'varchar', 100, 'favorites', None, 'NULL'),
               ]
-              ]
+             ]
      ),
-    ('ExternalUser', ['core.model.external_user', 'User', 'ExternalUser', EntityTableMapType.SINGLE,
-                 [
-                     ('CompanyName', 'varchar', 100, 'company_name', None, 'NOT NULL'),
-                     ('MailingAddress', 'varchar', 100, 'mailing_address', None, 'NOT NULL'),
-                 ]
-                 ]
-     ),
-    ('System', ['core.model.system', 'Base', 'System', EntityTableMapType.SINGLE,
-               [
-                   ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
-                   ('SystemName', 'varchar', 100, 'system_name', None, 'NOT NULL'),
-                   ('SystemDescription', 'varchar', 100, 'system_description', None, 'NOT NULL'),
-                   ('Contacts', 'JSON', None, 'contacts', None, 'NULL')
-               ]
-            ]
-     ),
-    ('Role', ['core.model.role', 'Base', 'Role', EntityTableMapType.SINGLE,
+    ('Announcement', ['model.announcement', 'Base', 'Announcement', EntityTableMapType.SINGLE,
               [
                   ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
-                  ('SystemId', 'UNIQUEIDENTIFIER', None, 'system_id', ['SK', 'N'], 'NOT NULL'),
-                  ('RoleName', 'varchar', 100, 'role_name', None, 'NOT NULL'),
-                  ('RoleDecription', 'varchar', 1024, 'role_description', None, 'NOT NULL'),
+                  ('CreationDate', 'datetime', None, 'creation_date', None, 'NOT NULL'),
+                  ('NewsLink',  'varchar', 528, 'news_link', None, 'NOT NULL')
               ]
-            ]
+             ]
      ),
-    ('UserRole', ['core.model.user_role', 'Base', 'UserRole', EntityTableMapType.SINGLE,
-               [
-                   ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
-                   ('RoleId', 'UNIQUEIDENTIFIER', None, 'role_id', ['SK', 'N'], 'NOT NULL'),
-                   ('UserId', 'UNIQUEIDENTIFIER', None, 'user_id', ['SK', 'N'], 'NOT NULL'),
-                   ('LoginName', 'varchar', 100, 'login_name', None, 'NOT NULL'),
-               ]
-            ]
-     ),
-    ('EntlSource', ['core.model.source.entl_source', 'Base', 'EntlSource', EntityTableMapType.COMPOSITE,
-                  [
-                      ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
-                      ('EntlType', 'varchar', 100, 'entl_type', ['SK', 'N'], 'NOT NULL'),
-                      ('SourcePath', 'varchar', 100, 'source_path', None, 'NOT NULL'),
-                      ('DetailData', 'JSON', None, '_', None, 'NOT NULL'),
-                  ]
+    ('PlayaConfiguration', ['model.playa_configuration', 'Base', 'PlayaConfiguration', EntityTableMapType.SINGLE,
+              [
+                  ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
+                  ('SiteLogo', 'varchar', 256, 'site_logo', None, 'NOT NULL'),
+                  ('SiteName', 'varchar', 256, 'site_name', None, 'NOT NULL'),
+                  ('LobbyLogo', 'varchar', 256, 'lobby_logo', None, 'NOT NULL'),
+                  ('Theme', 'int', None, 'theme', None, 'NULL'),
+                  ('Categories', 'bit', None, 'categories', None, 'NULL'),
+                  ('Announcements', 'bit', None, 'announcements', None, 'NULL'),
+                  ('FreeVideos', 'bit', None, 'free_videos', None, 'NOT NULL'),
+                  ('FreedVideoCategoryLogo',  'varchar', 256, 'lobby_logo', None, 'NOT NULL'),
+                  ('Registry', 'bit', None, 'registry', None, 'NOT NULL')
               ]
+             ]
      ),
-]
+    ('Category', ['model.category', 'Base', 'Category', EntityTableMapType.SINGLE,
+              [
+                  ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
+                  ('CategoryId',  'int', None, 'category_id', None, 'NULL'),
+                  ('Name', 'varchar', 100, 'name', None, 'NOT NULL'),
+                  ('Image', 'varchar', 256, 'image', None, 'NOT NULL')
+              ]
+             ]
+     ),
+    ]
 
 REFERENCE_SPEC = [
-    (('User', 'Id'), ('UserRole', 'UserId')),
-    (('Role', 'Id'), ('UserRole', 'RoleId')),
-    (('System', 'Id'), ('Role', 'SystemId')),
 ]
 
-CHILD_ENTITY_JSON_DATA = {
-    'EntlSource':
-        [
-            ('EntlType', 1, {'EmailSource':'core.model.source.email_source',
-                                    'FTPSource':'core.model.source.ftp_source'}),
-            {
-                'EmailSource':[('sender_email', 'SenderEmail'), ('subject_pattern', 'SubjectPattern')],
-                'FTPSource': [('ftp_host', 'FTPHost'), ('ftp_username', 'FTPUserName'), ('ftp_password', 'FTPPassword'), ('ftp_location', 'FTPLocation')],
-            }
-        ]
+CHILD_ENTITY_JSON_DATA = { 
 }
-
 
 GENERATION_SPEC = collections.OrderedDict(GENERATION_SPEC)
 
