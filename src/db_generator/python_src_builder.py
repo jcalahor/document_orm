@@ -4,6 +4,9 @@ from db_generator.generation_spec import GENERATION_SPEC, get_parent_class, get_
 def build_store_entity(entity, class_hierarchy):
     table_name = get_table_name(entity)
     python_src = """from util.json import to_collection_json, to_json
+from util.collections.py import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
+import json
+
 {0}
 
 {1}
@@ -40,10 +43,16 @@ def store_{2}(logger, cursor, entity):
             field_name, field_type, size, member_name, index_info, null_spec = field_spec
             params = params + '\n\t\t\t\t@{0} = ?,'.format(field_name)
             if member_name != "_":
-                if field_type != 'JSON':
-                    param_values = param_values + 'entity.{0},\n            '.format(member_name)
-                else:
+                if field_type == 'list|int':
+                    param_values = param_values + 'to_numeric_flat_collection(entity.{0}),\n            '.format(member_name)
+                elif field_type ==  'list|string':
+                    param_values = param_values + 'to_string_flat_collection(entity.{0}),\n            '.format(member_name)
+                elif field_type == 'dict':
+                    param_values = param_values + 'json.dumps(entity.{0}),\n            '.format(member_name)
+                elif field_type == 'JSON':
                     param_values = param_values + 'to_collection_json(entity.{0}),\n            '.format(member_name)
+                else:
+                    param_values = param_values + 'entity.{0},\n            '.format(member_name)
             else: ## is a composite
                 param_values = param_values + 'additional_fields_to_json(entity),\n            '
 
@@ -172,10 +181,17 @@ def get_{3}s(logger, connection, filter_sql):
         for field_spec in member_spec:
             field_name, field_type, size, member_name, index_info, null_spec = field_spec
             if member_name != "_":
-                if field_type != 'JSON':
-                    map_src = map_src + "\n        entity.{0} = row[{1}]".format(member_name, str(i))
-                else:
+                if field_type == 'list|int':
+                    map_src = map_src + "\n        entity.{0} = to_numeric_collection(row[{1}])".format(member_name, str(i))
+                elif field_type ==  'list|string':
+                    map_src = map_src + "\n        entity.{0} = to_string_colllection(row[{1}])".format(member_name, str(i))
+                elif field_type == 'dict':
+                    map_src = map_src + "\n        entity.{0} = json.load(row[{1}])".format(member_name, str(i))
+                elif field_type == 'JSON':
                     map_src = map_src + "\n        entity.{0} = to_collection_items(row[{1}])".format(member_name, str(i))
+                else:
+                    map_src = map_src + "\n        entity.{0} = row[{1}]".format(member_name, str(i))
+                    
             else: # composite process
                 map_src = map_src + build_composite_additional_fields_src(class_name, table_name, i)
             i = i + 1

@@ -57,6 +57,37 @@ GENERATION_SPEC = [
               ]
              ]
      ),
+    ('Video', ['model.video', 'Base', 'Video', EntityTableMapType.SINGLE,
+              [
+                  ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
+                  ('VideoId',   'int', None,  'video_id', None, 'NOT NULL'),
+                  ('DateGMT',  'varchar', 256, 'date_gmt', None, 'NOT NULL'),
+                  ('Title',  'varchar', 256, 'title', None, 'NOT NULL'),
+                  ('Status',  'varchar', 50, 'status', None, 'NOT NULL'),
+                  ('Content',  'varchar', 1024, 'content', None, 'NOT NULL'),
+                  ('VideoCategory',  'list|int', None, 'video_category', None, 'NOT NULL'),
+                  ('VideoPoster',  'varchar', 1024, 'video_poster', None, 'NOT NULL'),
+                  ('VideoPreviewSprite',  'varchar', 1024, 'video_preview_sprite', None, 'NOT NULL'),
+                  ('TrailerPreviewSprite',  'varchar', 1024, 'trailer_preview_sprite', None, 'NOT NULL'),
+                  ('VideoLinks',  'dict', None, 'video_links', None, 'NOT NULL'),
+                  ('TrailerLinks',  'dict', None, 'trailer_links', None, 'NOT NULL'),
+                  ('VideoPositions',  'list|string', None, 'video_positions', None, 'NOT NULL'),
+                  ('VideoRating', 'int', None,  'video_rating', None, 'NOT NULL'),
+                  ('VideoFeatured',  'int', None, 'video_featured', None, 'NOT NULL'),
+                  ('VideoDuration',  'varchar', 10, 'video_duration', None, 'NOT NULL'),
+                  ('VideoFPS',  'varchar', 10, 'video_fps', None, 'NOT NULL'),
+                  ('VideoStarring',  'list|string', None, 'video_starring', None, 'NOT NULL'),
+                  ('VideoTags',  'list|string', None, 'video_tags', None, 'NOT NULL'),
+                  ('SeekMarkersFull',  'list|string', None, 'seek_markers_full', None, 'NOT NULL'),
+                  ('SeekMarkersTrailer',  'list|string', None, 'seek_markers_trailer', None, 'NOT NULL'),
+                  ('TimeCodesForTrailer',  'list|int', None, 'timecodes_for_trailer', None, 'NOT NULL'),
+                  ('TimeCodesForVideo',  'list|int', None, 'timecodes_for_video', None, 'NOT NULL'),
+                  ('AutomaticCameraTilt',  'JSON', None, 'automatic_camera_tilt', None, 'NOT NULL'),
+                  ('AutomaticCameraTiltTrailer',  'JSON', None, 'automatic_camera_tilt_trailer', None, 'NOT NULL'),
+                  ('Description',  'varchar', 256, 'description', None, 'NOT NULL')                
+              ]
+             ]
+     ),
     ]
 
 REFERENCE_SPEC = [
