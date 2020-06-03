@@ -4,7 +4,7 @@ from db_generator.generation_spec import GENERATION_SPEC, get_parent_class, get_
 def build_store_entity(entity, class_hierarchy):
     table_name = get_table_name(entity)
     python_src = """from util.json import to_collection_json, to_json
-from util.collections.py import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
+from util.collections import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
 import json
 
 {0}
@@ -132,6 +132,7 @@ def build_get_entity(entity, class_hierarchy):
 
     table_name = get_table_name(entity)
     python_src = """from util.json import to_collection_items, to_object
+from util.collections import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
 import importlib
 {0}
 from {1} import {2}

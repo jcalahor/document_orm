@@ -1,6 +1,8 @@
 from db_generator.generation_spec import GENERATION_SPEC, get_parent_class, get_table_name, get_table_spec
 
 
+SERIALIZABLE_FIELDS = ['JSON', 'list|int', 'list|string', 'dict']
+
 def build_create_table_sql(hierarchy, entity_keys, class_name):
     table_name = get_table_name(class_name)
     table_field_spec = get_table_spec(class_name)
@@ -24,7 +26,7 @@ def build_create_table_sql(hierarchy, entity_keys, class_name):
                 secondary_indexes.append((field_name, 'U'))
             process_hierarchy = False
         field_name, field_type, size, member_name, index_info, null_spec = field_spec
-        field_type, size = ('NVARCHAR', 'MAX') if field_type == 'JSON' else (field_type, size)
+        field_type, size = ('NVARCHAR', 'MAX') if field_type in SERIALIZABLE_FIELDS else (field_type, size)
         if index_info:
             if (index_info[0] == 'PK'):
                 primary_key = (field_name, field_type, size, index_info, null_spec)
@@ -63,7 +65,7 @@ def build_store_sp_sql(class_hierarchy, entity_keys):
 
         for field_spec in table_field_spec:
             field_name, field_type, size, member_name, index_info, null_spec = field_spec
-            field_type, size = ('NVARCHAR', 'MAX') if field_type == 'JSON' else (field_type, size)
+            field_type, size = ('NVARCHAR', 'MAX') if field_type in SERIALIZABLE_FIELDS else (field_type, size)
             if index_info:
                 if (index_info[0] == 'PK'):
                     primary_key = field_name
@@ -145,7 +147,7 @@ END CATCH
     primary_key = ""
     delete_sql = ""
     parent_table, parent_class, (field_name, field_type, size, member_name, index_info, null_spec) = entity_keys[class_hierarchy[0]]
-    field_type, size = ('NVARCHAR', 'MAX') if field_type == 'JSON' else (field_type, size)
+    field_type, size = ('NVARCHAR', 'MAX') if field_type in SERIALIZABLE_FIELDS else (field_type, size)
     if not size:
         params = '@{0} as [{1}]'.format(field_name, field_type)
     else:
@@ -183,7 +185,7 @@ def build_get_sp_sql(hierarchy_class, entity_keys, class_name):
         table_field_spec = get_table_spec(cls)
         for field_spec in table_field_spec:
             field_name, field_type, size, member_name, index_info, null_spec = field_spec
-            field_type, size = ('NVARCHAR', 'MAX') if field_type == 'JSON' else (field_type, size)
+            field_type, size = ('NVARCHAR', 'MAX') if field_type in SERIALIZABLE_FIELDS else (field_type, size)
             if not size:
                 fields_temp_table = fields_temp_table + '\n\t[{0}] [{1}],'.format(field_name, field_type)
             else:

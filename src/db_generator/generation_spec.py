@@ -21,7 +21,7 @@ GENERATION_SPEC = [
                   ('Password', 'varchar', 100, 'password', None, 'NOT NULL'),
                   ('Role', 'int', None, 'role', None, 'NULL'),
                   ('Avatar', 'int', None, 'avatar', None, 'NULL'),
-                  ('Favorites', 'varchar', 100, 'favorites', None, 'NULL'),
+                  ('Favorites', 'list|int', None, 'favorites', None, 'NULL')
               ]
              ]
      ),

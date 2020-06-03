@@ -5,7 +5,7 @@ import pkgutil
 
 
 JSON_SERIALIZABLE_MODULES = [
-    'core.model'
+    'model'
 ]
 
 def register_json_classes():
