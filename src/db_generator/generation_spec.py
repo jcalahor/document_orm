@@ -43,7 +43,7 @@ GENERATION_SPEC = [
                   ('Categories', 'bit', None, 'categories', None, 'NULL'),
                   ('Announcements', 'bit', None, 'announcements', None, 'NULL'),
                   ('FreeVideos', 'bit', None, 'free_videos', None, 'NOT NULL'),
-                  ('FreedVideoCategoryLogo',  'varchar', 256, 'lobby_logo', None, 'NOT NULL'),
+                  ('FreedVideoCategoryLogo',  'varchar', 256, 'free_video_category_logo', None, 'NOT NULL'),
                   ('Registry', 'bit', None, 'registry', None, 'NOT NULL')
               ]
              ]
