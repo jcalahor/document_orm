@@ -48,7 +48,7 @@ def store_{2}(logger, cursor, entity):
                 elif field_type ==  'list|string':
                     param_values = param_values + 'to_string_flat_collection(entity.{0}),\n            '.format(member_name)
                 elif field_type == 'dict':
-                    param_values = param_values + 'json.dumps(entity.{0}),\n            '.format(member_name)
+                    param_values = param_values + 'json.dumps([entity.{0}]),\n            '.format(member_name)
                 elif field_type == 'JSON':
                     param_values = param_values + 'to_collection_json(entity.{0}),\n            '.format(member_name)
                 else:
@@ -134,6 +134,8 @@ def build_get_entity(entity, class_hierarchy):
     python_src = """from util.json import to_collection_items, to_object
 from util.collections import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
 import importlib
+import json
+
 {0}
 from {1} import {2}
 
@@ -187,7 +189,7 @@ def get_{3}s(logger, connection, filter_sql):
                 elif field_type ==  'list|string':
                     map_src = map_src + "\n        entity.{0} = to_string_colllection(row[{1}])".format(member_name, str(i))
                 elif field_type == 'dict':
-                    map_src = map_src + "\n        entity.{0} = json.load(row[{1}])".format(member_name, str(i))
+                    map_src = map_src + "\n        entity.{0} = json.loads(row[{1}])[0]".format(member_name, str(i))
                 elif field_type == 'JSON':
                     map_src = map_src + "\n        entity.{0} = to_collection_items(row[{1}])".format(member_name, str(i))
                 else:
