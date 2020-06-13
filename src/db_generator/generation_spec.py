@@ -21,7 +21,16 @@ GENERATION_SPEC = [
                   ('Password', 'varchar', 100, 'password', None, 'NOT NULL'),
                   ('Role', 'int', None, 'role', None, 'NULL'),
                   ('Avatar', 'int', None, 'avatar', None, 'NULL'),
-                  ('Favorites', 'list|int', None, 'favorites', None, 'NULL')
+                  ('Favorites', 'list|int', None, 'favorites', None, 'NULL'),
+                  ('AllowMarketing', 'bit', None, 'allow_marketing', None, 'NULL'),
+              ]
+             ]
+     ),
+    ('Joiner', ['model.joiner', 'Base', 'Joiner', EntityTableMapType.SINGLE,
+              [
+                  ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
+                  ('Email', 'varchar', 100, 'email', None, 'NOT NULL'),
+                  ('AllowMarketing', 'bit', None, 'allow_marketing', None, 'NULL')
               ]
              ]
      ),
