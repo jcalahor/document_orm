@@ -3,8 +3,8 @@ from db_generator.generation_spec import GENERATION_SPEC, get_parent_class, get_
 
 def build_store_entity(entity, class_hierarchy):
     table_name = get_table_name(entity)
-    python_src = """from util.json import to_collection_json, to_json
-from util.collections import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
+    python_src = """from app.util.json import to_collection_json, to_json
+from app.util.collections import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
 import json
 
 {0}
@@ -32,7 +32,7 @@ def store_{2}(logger, cursor, entity):
     if get_entity_table_map_type(class_hierarchy[0]) == EntityTableMapType.COMPOSITE:
         _, _, package_map = get_composite_map_spec(table_name)[0]
         for key in package_map:
-            import_map_src = import_map_src + '\nfrom {0} import {1}'.format(package_map[key], key)
+            import_map_src = import_map_src + '\nfrom app.{0} import {1}'.format(package_map[key], key)
 
     params = ""
     param_values = ""
@@ -131,13 +131,13 @@ def build_get_entity(entity, class_hierarchy):
         return json_map_src + composite_src
 
     table_name = get_table_name(entity)
-    python_src = """from util.json import to_collection_items, to_object
-from util.collections import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
+    python_src = """from app.util.json import to_collection_items, to_object
+from app.util.collections import to_numeric_collection, to_string_colllection, to_string_flat_collection, to_numeric_flat_collection
 import importlib
 import json
 
 {0}
-from {1} import {2}
+from app.{1} import {2}
 
     
 def get_{3}s(logger, connection, filter_sql):
@@ -165,7 +165,7 @@ def get_{3}s(logger, connection, filter_sql):
     if get_entity_table_map_type(class_hierarchy[0]) == EntityTableMapType.COMPOSITE:
         _, _, package_map = get_composite_map_spec(table_name)[0]
         for key in package_map:
-            import_map_src = import_map_src + '\nfrom {0} import {1}'.format(package_map[key], key)
+            import_map_src = import_map_src + '\nfrom app.{0} import {1}'.format(package_map[key], key)
 
 
     entry_map_src = ""

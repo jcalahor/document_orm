@@ -1,6 +1,6 @@
 import sys,os
 sys.path.append(os.getcwd())
-sys.path.append('/home/jcalahor/development/vr/vr_content_server/src')
+sys.path.append('/home/jcalahor/development/vr/vr_content_server/src/app')
 
 from configparser import ConfigParser
 import logging

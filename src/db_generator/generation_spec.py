@@ -38,7 +38,8 @@ GENERATION_SPEC = [
               [
                   ('Id', 'UNIQUEIDENTIFIER', None, 'id', ['PK'], 'NOT NULL'),
                   ('CreationDate', 'datetime', None, 'creation_date', None, 'NOT NULL'),
-                  ('NewsLink',  'varchar', 528, 'news_link', None, 'NOT NULL')
+                  ('NewsLink',  'varchar', 528, 'news_link', None, 'NOT NULL'),
+                  ('Caption',  'varchar', 100, 'caption', None, 'NOT NULL')
               ]
              ]
      ),
@@ -93,7 +94,8 @@ GENERATION_SPEC = [
                   ('TimeCodesForVideo',  'list|int', None, 'timecodes_for_video', None, 'NOT NULL'),
                   ('AutomaticCameraTilt',  'JSON', None, 'automatic_camera_tilt', None, 'NOT NULL'),
                   ('AutomaticCameraTiltTrailer',  'JSON', None, 'automatic_camera_tilt_trailer', None, 'NOT NULL'),
-                  ('Description',  'varchar', 256, 'description', None, 'NOT NULL')                
+                  ('Description',  'varchar', 256, 'description', None, 'NOT NULL'),
+                  ('IsFree',  'bit',  None, 'is_free', None, 'NULL')
               ]
              ]
      ),
